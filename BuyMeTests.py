@@ -1,11 +1,8 @@
 import logging
 from unittest import TestCase
-import json
-import allure
-from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from BuyMe import BuyMeIntroPage, RegistrationForm, HomeScreen
+from BuyMe import BuyMeIntroPage, RegistrationForm, HomeScreen, PickBusiness, SenderReceiverInfo
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -16,6 +13,7 @@ logging.basicConfig(
                     datefmt='%H:%M:%S', # determine the format of the output time
                     level=logging.ERROR) # determine the minimum message level it will accept
 class test_Buyme(TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(service=Service("C:\\Users\\shiri pc\\Desktop\\chromedriver_win32\\chromedriver.exe"))
@@ -32,7 +30,6 @@ class test_Buyme(TestCase):
         self.intro_page.click_to_register()
         self.intro_page.register()
         logger.info("test_intro_page completed")
-        allure.attach(self.driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
 
     def test_registration_form(self):
         logger.info("Starting test_registration_form")
@@ -55,8 +52,21 @@ class test_Buyme(TestCase):
         logger.info("test_home_screen completed")
 
     def test_pick_business(self):
+        logger.info("Starting test_pick_business")
         self.pick_business = PickBusiness(self.driver)
-        self.pick_business.assert_url()
+        self.pick_business.check_pick_business_url()
+        self.pick_business.pick_business()
+        self.pick_business.enter_and_submit_price()
+        logger.info("test_pick_business completed")
+
+    def test_sender_receiver_info(self):
+        logger.info("Starting test_sender_receiver_info")
+        self.test_sender_receiver_info = SenderReceiverInfo(self.driver)
+        self.test_sender_receiver_info.send_for_someone_else()
+        self.test_sender_receiver_info.fill_in_receiver_name()
+        self.test_sender_receiver_info.pick_event()
+        logger.info("test_sender_receiver_info completed")
+
 
     @classmethod
     def tearDownClass(cls):
