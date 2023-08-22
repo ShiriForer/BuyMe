@@ -68,20 +68,17 @@ class HomeScreen(BasePage):
     # initialize a constructor and variables for the current class
     def __init__(self, driver):
         BasePage.__init__(self, driver)
-        # self.price_range = '200-299 ש"ח'
-        # self.region = "צפון"
-        # self.gift = "מתנות במימוש אונליין"
 
     # choose the gift's price range
     def pick_price_point(self):
-        self.select_option_by_value(By.ID, "ember1157").select_by_value('200-299 ש"ח')
+        self.select_option(By.ID, "ember1157").select_by_value("3") # select 200-299 NIS
     # choose region
     def pick_region(self):
-        self.select_option_by_visible_text(By.CSS_SELECTOR, "span[aria-label='אזור']", self.region)
+        self.select_option(By.CSS_SELECTOR, "div[aria-label='אזור']").select_by_value("9") # select the North region
 
     # choose category
     def pick_category(self):
-        self.select_option_by_visible_text(By.CSS_SELECTOR, "span[aria-label='קטגוריה']", self.gift)
+        self.select_option(By.NAME, "category").select_by_value("300") # select מתנות במימוש אונליין
 
     # click to submit criteria and find a gift
     def find_gift(self):
