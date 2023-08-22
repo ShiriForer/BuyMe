@@ -1,5 +1,8 @@
 import logging
 from unittest import TestCase
+import json
+import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from BuyMe import BuyMeIntroPage, RegistrationForm, HomeScreen
@@ -29,6 +32,7 @@ class test_Buyme(TestCase):
         self.intro_page.click_to_register()
         self.intro_page.register()
         logger.info("test_intro_page completed")
+        allure.attach(self.driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
 
     def test_registration_form(self):
         logger.info("Starting test_registration_form")
@@ -49,6 +53,10 @@ class test_Buyme(TestCase):
         self.home_screen.pick_category()
         self.home_screen.find_gift()
         logger.info("test_home_screen completed")
+
+    def test_pick_business(self):
+        self.pick_business = PickBusiness(self.driver)
+        self.pick_business.assert_url()
 
     @classmethod
     def tearDownClass(cls):

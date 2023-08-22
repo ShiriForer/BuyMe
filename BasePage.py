@@ -30,22 +30,17 @@ class BasePage:
     def select_option_by_value(self, locator_type, locator_value, option_value):
         #click to open a drop-down list
         try:
-            multiple_choice_field = self.driver.find_element(locator_type, locator_value)
-            multiple_choice_field.click()
+            multiple_choice_field = Select(self.driver.find_element(locator_type, locator_value))
+            multiple_choice_field.select_by_value(option_value)
         except (NoSuchElementException, TimeoutException):
             self.capture_screenshot()
-        # select an option from the list
-        choose_option = Select(multiple_choice_field)
-        choose_option.select_by_value(option_value)
 
     # Identify a multiple choice field and select a value using select by visible text method
     def select_option_by_visible_text(self, locator_type, locator_value, visible_text):
-        # click to open the drop-down list
+        # select an option from a drop-down list
         try:
-            multiple_choice_field = self.driver.find_element(locator_type, locator_value)
-            multiple_choice_field.click()
+            multiple_choice_field = Select(self.driver.find_element(locator_type, locator_value))
+            multiple_choice_field.select_by_visible_text(visible_text)
         except (NoSuchElementException, TimeoutException):
             self.capture_screenshot()
-        # select an option from the list
-        choose_option = Select(multiple_choice_field)
-        choose_option.select_by_visible_text(visible_text)
+

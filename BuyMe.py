@@ -4,18 +4,20 @@ from BasePage import BasePage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
+
 class BuyMeIntroPage(BasePage):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
         self.driver = driver
 
-    #If banner pops-up, close it
+    # If banner pops-up, close it
     def close_intro_banner(self):
         try:
-            intro_banner = WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.NAME, "כפתור סגירה")))
+            intro_banner = WebDriverWait(self.driver, 15).until(
+                EC.presence_of_element_located((By.NAME, "כפתור סגירה")))
             intro_banner.click()
         except NoSuchElementException:
-             pass
+            pass
 
     # sign-in to website
     def click_to_register(self):
@@ -23,8 +25,9 @@ class BuyMeIntroPage(BasePage):
 
     # click to register as a new user
     def register(self):
-        #self.click_element(By.CSS_SELECTOR, "div.register-or-login span.text-link.theme")
+        # self.click_element(By.CSS_SELECTOR, "div.register-or-login span.text-link.theme")
         self.click_element(By.XPATH, "//span[@aria-label='להרשמה']")
+
 
 class RegistrationForm(BasePage):
     # initialize a constructor and variables for RegistrationForm class
@@ -37,17 +40,17 @@ class RegistrationForm(BasePage):
 
     # fill-in registration form
     def fill_in_first_name(self):
-        #self.enter_text(By.CSS_SELECTOR, "input[placeholder='שם פרטי']", self.reg_first_name)
+        # self.enter_text(By.CSS_SELECTOR, "input[placeholder='שם פרטי']", self.reg_first_name)
         self.enter_text(By.XPATH, "//input[@placeholder='שם פרטי']", self.reg_first_name)
-        assert self.driver.find_element(By.XPATH, "//input[@placeholder='שם פרטי']").get_attribute("value") == self.reg_first_name
+        assert self.driver.find_element(By.XPATH, "//input[@placeholder='שם פרטי']").get_attribute(
+            "value") == self.reg_first_name
 
     def fill_in_email_address(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='מייל']", self.reg_email)
-        #self.enter_text(By.XPATH, "//input[@placeholder='מייל']", self.reg_email)
+        # self.enter_text(By.XPATH, "//input[@placeholder='מייל']", self.reg_email)
 
     def fill_in_password(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='סיסמה']", self.password)
-        #self.enter_text(By.XPATH, "input[placeholder='סיסמה']", self.password)
 
     def confirm_password(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='אימות סיסמה']", self.password)
@@ -59,6 +62,7 @@ class RegistrationForm(BasePage):
     # submit form
     def submit_registration_form(self):
         self.click_element(By.CLASS_NAME, "login-options grid bottom-lr register-text")
+
 
 class HomeScreen(BasePage):
     # initialize a constructor and variables for the current class
@@ -83,3 +87,32 @@ class HomeScreen(BasePage):
     # click to submit criteria and find a gift
     def find_gift(self):
         self.click_element(By.CSS_SELECTOR, "a[href='https://buyme.co.il/search']")
+
+
+class PickBusiness(BasePage):
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
+        self.expected_url = "https://buyme.co.il/search?budget=3&category=300&region=9"
+        self.price_of_choice = "250"
+
+    def assert_pick_business_url(self):
+        assert self.driver.current_url == self.expected_url
+
+    def pick_business(self):
+        self.click_element(By.CSS_SELECTOR, "img[title='SABON']")
+
+    def enter_and_submit_price(self):
+        self.enter_text(By.CSS_SELECTOR, "input[placeholder='הכנס סכום']", self.price_of_choice)
+        self.click_element(By.CSS_SELECTOR, "button[type='submit']")
+
+class SenderReceiverInfo(BasePage):
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
+        self.receiver_name = "Sarah"
+        self.event_of_choice =
+    def send_for_someone_else(self):
+        self.click_element(By.CLASS_NAME, "ember-view button button-forSomeone selected")
+    def fill_in_receiver_name(self):
+        self.enter_text(By.CSS_SELECTOR, "input[title='שם מקבל המתנה']", self.receiver_name)
+    def pick_event(self):
+        self.click_element(By.NAME, "eventType")
