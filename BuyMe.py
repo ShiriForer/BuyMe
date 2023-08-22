@@ -8,9 +8,7 @@ class BuyMeIntroPage(BasePage):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
         self.driver = driver
-        self.reg_first_name = "Yair"
-        self.reg_email = "yeled_z@yahoo.com"
-        self.password = "12345"
+
     #If banner pops-up, close it
     def close_intro_banner(self):
         try:
@@ -62,26 +60,26 @@ class RegistrationForm(BasePage):
     def submit_registration_form(self):
         self.click_element(By.CLASS_NAME, "login-options grid bottom-lr register-text")
 
-# class HomeScreen(BasePage):
-#     # initialize a constructor and variables for the current class
-#     def __init__(self, driver):
-#         BasePage.__init__(self, driver)
-#         self.price_range = '200-299 ש"ח'
-#         self.region = "צפון"
-#         self.gift = "מתנות במימוש אונליין"
-#
-#     # choose the gift's price range
-#     def pick_price_point(self):
-#         self.select_option_by_visible_text(By.CSS_SELECTOR, 'div.selected-name span[title="סכום"]', self.price_range)
-#
-#     # choose region
-#     def pick_region(self):
-#         self.select_option_by_visible_text(By.CSS_SELECTOR, 'div.selected-name span[title="אזור"]', self.region)
-#
-#     # choose category
-#     def pick_category(self):
-#         self.select_option_by_visible_text(By.CSS_SELECTOR, 'div.selected-name span[title="קטגוריה"]', self.gift)
-#
-#     # click to submit criteria and find a gift
-#     def find_gift(self):
-#         self.click_element(By.ID, "ember1295")
+class HomeScreen(BasePage):
+    # initialize a constructor and variables for the current class
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
+        self.price_range = '200-299 ש"ח'
+        self.region = "צפון"
+        self.gift = "מתנות במימוש אונליין"
+
+    # choose the gift's price range
+    def pick_price_point(self):
+        self.select_option_by_visible_text(By.CSS_SELECTOR, "span[aria-label='סכום']", self.price_range)
+
+    # choose region
+    def pick_region(self):
+        self.select_option_by_visible_text(By.CSS_SELECTOR, "span[aria-label='אזור']", self.region)
+
+    # choose category
+    def pick_category(self):
+        self.select_option_by_visible_text(By.CSS_SELECTOR, "span[aria-label='קטגוריה']", self.gift)
+
+    # click to submit criteria and find a gift
+    def find_gift(self):
+        self.click_element(By.CSS_SELECTOR, "a[href='https://buyme.co.il/search']")
