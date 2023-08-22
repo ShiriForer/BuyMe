@@ -26,21 +26,10 @@ class BasePage:
         except (NoSuchElementException, TimeoutException):
             self.capture_screenshot()
 
-    # Identify a multiple choice field and select a value using select by value method
-    def select_option_by_value(self, locator_type, locator_value, option_value):
-        #click to open a drop-down list
+    # Identify a multiple choice field and select a value
+    def select_option(self, locator_type, locator_value, option_value):
         try:
             multiple_choice_field = Select(self.driver.find_element(locator_type, locator_value))
             multiple_choice_field.select_by_value(option_value)
         except (NoSuchElementException, TimeoutException):
             self.capture_screenshot()
-
-    # Identify a multiple choice field and select a value using select by visible text method
-    def select_option_by_visible_text(self, locator_type, locator_value, visible_text):
-        # select an option from a drop-down list
-        try:
-            multiple_choice_field = Select(self.driver.find_element(locator_type, locator_value))
-            multiple_choice_field.select_by_visible_text(visible_text)
-        except (NoSuchElementException, TimeoutException):
-            self.capture_screenshot()
-
