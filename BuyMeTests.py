@@ -11,7 +11,7 @@ logging.basicConfig(
                     filemode='a', # set it to append rather than overwrite
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', # determine the format of the output message
                     datefmt='%H:%M:%S', # determine the format of the output time
-                    level=logging.ERROR) # determine the minimum message level it will accept
+                    level=logging.INFO) # determine the minimum message level it will accept
 class test_Buyme(TestCase):
 
     @classmethod
@@ -39,6 +39,7 @@ class test_Buyme(TestCase):
         self.registration_form.fill_in_password()
         self.registration_form.confirm_password()
         self.registration_form.agree_to_terms()
+        self.registration_form.assert_first_name()
         self.registration_form.submit_registration_form()
         logger.info("test_registration_form completed")
 
@@ -71,6 +72,8 @@ class test_Buyme(TestCase):
         self.test_sender_receiver_info.press_now()
         self.test_sender_receiver_info.choose_email_method()
         self.test_sender_receiver_info.enter_email_address()
+        self.test_sender_receiver_info.enter_sender_name()
+        self.test_sender_receiver_info.assert_receiver_name()
         logger.info("test_sender_receiver_info completed")
 
 

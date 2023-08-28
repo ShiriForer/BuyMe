@@ -36,3 +36,6 @@ class BasePage:
         except (NoSuchElementException, TimeoutException):
             self.capture_screenshot(f"Element at {locator_type} = {locator_value}")
 
+    def assert_input_text(self, input_text_element, expected_text):
+        actual_text = input_text_element.text
+        assert actual_text == expected_text

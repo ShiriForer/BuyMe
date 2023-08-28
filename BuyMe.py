@@ -20,25 +20,22 @@ class BuyMeIntroPage(BasePage):
 
     # click to register as a new user
     def register(self):
-        # self.click_element(By.CSS_SELECTOR, "div.register-or-login span.text-link.theme")
         self.click_element(By.XPATH, "//span[@aria-label='להרשמה']")
 
 
 class RegistrationForm(BasePage):
-    # initialize a constructor and variables for RegistrationForm class
+    # initialize a constructor and variables for the current class
     def __init__(self, driver):
         BasePage.__init__(self, driver)
         self.driver = driver
         self.reg_first_name = "Yair"
         self.reg_email = "yeled_z@yahoo.com"
         self.password = "12345"
+        self.first_name_field = self.driver.find_element(By.CSS_SELECTOR, "input[placeholder='שם פרטי']")
 
     # fill-in registration form
     def fill_in_first_name(self):
-        # self.enter_text(By.CSS_SELECTOR, "input[placeholder='שם פרטי']", self.reg_first_name)
-        self.enter_text(By.XPATH, "//input[@placeholder='שם פרטי']", self.reg_first_name)
-        assert self.driver.find_element(By.XPATH, "//input[@placeholder='שם פרטי']").get_attribute(
-            "value") == self.reg_first_name
+        self.enter_text(self.first_name_field, self.reg_first_name)
 
     def fill_in_email_address(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='מייל']", self.reg_email)
@@ -52,6 +49,10 @@ class RegistrationForm(BasePage):
     # check "agree to terms" box
     def agree_to_terms(self):
         self.click_element(By.CLASS_NAME, "login-options grid register-text")
+
+    # assert "first name" field
+    def assert_first_name(self):
+        self.assert_input_text(self.first_name_field, self.reg_first_name)
 
     # submit form
     def submit_registration_form(self):
@@ -82,6 +83,7 @@ class HomeScreen(BasePage):
 
 
 class PickBusiness(BasePage):
+    # initialize a constructor and variables for the current class
     def __init__(self, driver):
         BasePage.__init__(self, driver)
         self.expected_url = "https://buyme.co.il/search?budget=3&category=300&region=9"
@@ -99,19 +101,21 @@ class PickBusiness(BasePage):
 
 
 class SenderReceiverInfo(BasePage):
+    # initialize a constructor and variables for the current class
     def __init__(self, driver):
         BasePage.__init__(self, driver)
+        self.receiver_name_field = self.driver.find_element(By.CSS_SELECTOR, "input[title='שם מקבל המתנה']")
         self.receiver_name = "Sarah"
         self.greeting_text = "Happy Birthday"
         self.image_path = "C:/Users/shiri pc\Pictures/buyme/Monmartre.jpg"
         self.email_address = "Sarah@crazy.com"
-
+        self.sender_name = "Yair"
 
     def send_for_someone_else(self):
         self.click_element(By.CLASS_NAME, "ember-view button button-forSomeone selected")
 
     def fill_in_receiver_name(self):
-        self.enter_text(By.CSS_SELECTOR, "input[title='שם מקבל המתנה']", self.receiver_name)
+        self.enter_text(self.receiver_name_field, self.receiver_name)
 
     def pick_event(self):
         self.select_option(By.CSS_SELECTOR, "div[aria-label='לאיזה אירוע?']", "10")
@@ -133,5 +137,13 @@ class SenderReceiverInfo(BasePage):
 
     def enter_email_address(self):
         self.enter_text(By.ID, "email", self.email_address)
+
+    def enter_sender_name(self):
+        self.enter_text(By.ID, "ember1981", self.sender_name)
+
+    # assert "receiver name" field
+    def assert_receiver_name(self):
+        self.assert_input_text(self.receiver_name_field, self.receiver_name)
+
 
 
