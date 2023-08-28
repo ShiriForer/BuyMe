@@ -1,21 +1,16 @@
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from BasePage import BasePage
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
 
 class BuyMeIntroPage(BasePage):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
-        self.driver = driver
 
     # If banner pops-up, close it
     def close_intro_banner(self):
         try:
-            intro_banner = WebDriverWait(self.driver, 15).until(
-                EC.presence_of_element_located((By.NAME, "כפתור סגירה")))
-            intro_banner.click()
+            self.click_element(By.NAME, "כפתור סגירה")
         except NoSuchElementException:
             pass
 
@@ -71,15 +66,15 @@ class HomeScreen(BasePage):
 
     # choose the gift's price range
     def pick_price_point(self):
-        self.select_option(By.ID, "ember1157").select_by_value("3")  # select 200-299 NIS
+        self.select_option(By.CSS_SELECTOR, "select[data-parsley-id='45']", "3")  # select 200-299 NIS
 
     # choose region
     def pick_region(self):
-        self.select_option(By.CSS_SELECTOR, "div[aria-label='אזור']").select_by_value("9")  # select the North region
+        self.select_option(By.CSS_SELECTOR, "select[data-parsley-id='47']", "9")  # select the North region
 
     # choose category
     def pick_category(self):
-        self.select_option(By.NAME, "category").select_by_value("300")  # select מתנות במימוש אונליין
+        self.select_option(By.NAME, "category", "300")  # select מתנות במימוש אונליין
 
     # click to submit criteria and find a gift
     def find_gift(self):
@@ -115,4 +110,4 @@ class SenderReceiverInfo(BasePage):
         self.enter_text(By.CSS_SELECTOR, "input[title='שם מקבל המתנה']", self.receiver_name)
 
     def pick_event(self):
-        self.select_option(By.CSS_SELECTOR, "div[aria-label='לאיזה אירוע?']").select_by_value("10")
+        self.select_option(By.CSS_SELECTOR, "div[aria-label='לאיזה אירוע?']", "10")

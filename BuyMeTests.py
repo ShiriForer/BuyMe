@@ -26,7 +26,7 @@ class test_Buyme(TestCase):
     def test_intro_page(self):
         logger.info("Starting test_intro_page")
         self.intro_page = BuyMeIntroPage(self.driver)
-        #self.intro_page.close_intro_banner()
+        self.intro_page.close_intro_banner()
         self.intro_page.click_to_register()
         self.intro_page.register()
         logger.info("test_intro_page completed")

@@ -8,8 +8,8 @@ class BasePage:
 
     # capture and save screenshot for when an element is not found
     def capture_screenshot(self):
-        screenshot = screenshot.png
-        self.driver.save_screenshot(screenshot)
+        error_screenshot = "C:/Users/shiri pc/PycharmProjects/BuyMe/ErrorScreenshots/error_screenshot.png"
+        self.driver.save_screenshot(error_screenshot)
         print("The element was not found: a screenshot was saved")
 
     # Identify an element and click on it
