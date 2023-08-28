@@ -65,6 +65,12 @@ class test_Buyme(TestCase):
         self.test_sender_receiver_info.send_for_someone_else()
         self.test_sender_receiver_info.fill_in_receiver_name()
         self.test_sender_receiver_info.pick_event()
+        self.test_sender_receiver_info.enter_a_greeting()
+        self.test_sender_receiver_info.upload_picture()
+        self.test_sender_receiver_info.press_continue()
+        self.test_sender_receiver_info.press_now()
+        self.test_sender_receiver_info.choose_email_method()
+        self.test_sender_receiver_info.enter_email_address()
         logger.info("test_sender_receiver_info completed")
 
 

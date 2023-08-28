@@ -42,7 +42,6 @@ class RegistrationForm(BasePage):
 
     def fill_in_email_address(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='מייל']", self.reg_email)
-        # self.enter_text(By.XPATH, "//input[@placeholder='מייל']", self.reg_email)
 
     def fill_in_password(self):
         self.enter_text(By.CSS_SELECTOR, "input[placeholder='סיסמה']", self.password)
@@ -67,6 +66,7 @@ class HomeScreen(BasePage):
     # choose the gift's price range
     def pick_price_point(self):
         self.select_option(By.CSS_SELECTOR, "select[data-parsley-id='45']", "3")  # select 200-299 NIS
+        #self.select_option(By.CSS_SELECTOR, "div[aria-label='סכום']", "3")  # select 200-299 NIS
 
     # choose region
     def pick_region(self):
@@ -74,7 +74,7 @@ class HomeScreen(BasePage):
 
     # choose category
     def pick_category(self):
-        self.select_option(By.NAME, "category", "300")  # select מתנות במימוש אונליין
+        self.select_option(By.CSS_SELECTOR, "select[data-parsley-id='49']", "300")  # select מתנות במימוש אונליין
 
     # click to submit criteria and find a gift
     def find_gift(self):
@@ -102,6 +102,10 @@ class SenderReceiverInfo(BasePage):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
         self.receiver_name = "Sarah"
+        self.greeting_text = "Happy Birthday"
+        self.image_path = "C:/Users/shiri pc\Pictures/buyme/Monmartre.jpg"
+        self.email_address = "Sarah@crazy.com"
+
 
     def send_for_someone_else(self):
         self.click_element(By.CLASS_NAME, "ember-view button button-forSomeone selected")
@@ -111,3 +115,23 @@ class SenderReceiverInfo(BasePage):
 
     def pick_event(self):
         self.select_option(By.CSS_SELECTOR, "div[aria-label='לאיזה אירוע?']", "10")
+
+    def enter_a_greeting(self):
+        self.enter_text(By.CLASS_NAME, "parsley-success", self.greeting_text)
+
+    def upload_picture(self):
+        self.enter_text(By.CSS_SELECTOR, "label[aria-label='העלה מדיה']", self.image_path)
+
+    def press_continue(self):
+        self.click_element(By.CLASS_NAME, "ember-view bm-btn no-reverse main xl stretch")
+
+    def press_now(self):
+        self.click_element(By.CLASS_NAME, "ember-view button button-now selected")
+
+    def choose_email_method(self):
+        self.click_element(By.CSS_SELECTOR, "svg[gtm='method-email']")
+
+    def enter_email_address(self):
+        self.enter_text(By.ID, "email", self.email_address)
+
+
