@@ -13,7 +13,7 @@ logging.basicConfig(
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', # determine the format of the output message
                     datefmt='%H:%M:%S', # determine the format of the output time
                     level=logging.INFO) # determine the minimum message level it will accept
-class test_Buyme(TestCase):
+class TestBuyme(TestCase):
 
     @classmethod
     def setUpClass(cls):
