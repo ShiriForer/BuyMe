@@ -1,5 +1,7 @@
+import json
 import logging
 import allure
+from allure_commons.types import AttachmentType
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -17,8 +19,16 @@ class TestBuyme(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome(service=Service("C:\\Users\\shiri pc\\Desktop\\chromedriver_win32\\chromedriver.exe"))
-        cls.driver.get("https://buyme.co.il/")
+        json_file = open("config.json", "r")
+        data = json.load(json_file)
+        browser = data["browserType"]
+        if browser == "chrome":
+            cls.driver = webdriver.Chrome(service=Service("C:\\Users\\shiri pc\\Desktop\\chromedriver_win32\\chromedriver.exe"))
+        elif browser == "firefox":
+            cls.driver = webdriver.Firefox(service=Service("C:\\Users\\shiri pc\\Desktop\\Python\\QAExperts\\geckodriver-v0.33.0-win64"))
+
+        url = data["URL"]
+        cls.driver.get(url)
         # implicit wait
         cls.driver.implicitly_wait(10)
         # page load timeout
@@ -76,7 +86,6 @@ class TestBuyme(TestCase):
         self.test_sender_receiver_info.enter_sender_name()
         self.test_sender_receiver_info.assert_receiver_name()
         logger.info("test_sender_receiver_info completed")
-
 
     @classmethod
     def tearDownClass(cls):

@@ -1,0 +1,10 @@
+[
+  {
+    "browserType": "chrome",
+    "URL": "https://buyme.co.il/"
+  },
+  {
+    "browserType": "firefox",
+    "URL": "https://buyme.co.il/"
+  }
+]
