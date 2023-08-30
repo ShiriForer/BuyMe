@@ -1,4 +1,5 @@
 import logging
+import allure
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
