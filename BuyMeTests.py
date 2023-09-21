@@ -1,7 +1,6 @@
 import json
 import logging
 import allure
-from allure_commons.types import AttachmentType
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -21,13 +20,13 @@ class TestBuyme(TestCase):
     def setUpClass(cls):
         json_file = open("config.json", "r")
         data = json.load(json_file)
-        browser = data["browserType"]
+        browser = data[0]["browserType"]
         if browser == "chrome":
             cls.driver = webdriver.Chrome(service=Service("C:\\Users\\shiri pc\\Desktop\\chromedriver_win32\\chromedriver.exe"))
         elif browser == "firefox":
             cls.driver = webdriver.Firefox(service=Service("C:\\Users\\shiri pc\\Desktop\\Python\\QAExperts\\geckodriver-v0.33.0-win64"))
 
-        url = data["URL"]
+        url = data[0]["URL"]
         cls.driver.get(url)
         # implicit wait
         cls.driver.implicitly_wait(10)
